@@ -1,0 +1,7 @@
+alcaldia.content:
+  path: '/alcaldia'
+  defaults:
+    _controller: '\Drupal\alcaldia\Controller\AlcaldiaController::content'
+    _title: 'Módulo alcaldía'
+  requirements:
+    _permission: 'access content'

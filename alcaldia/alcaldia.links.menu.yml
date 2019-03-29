@@ -1,0 +1,6 @@
+alcaldia.admin:
+  title: 'Módulo alcaldía'
+  description: 'Enlace módulo alcaldía'
+  parent: system.admin_config_ui
+  route_name: alcaldia.content
+  weight: 100
