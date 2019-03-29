@@ -21,9 +21,8 @@ Class AlcaldiaBlock extends BlockBase implements BlockPluginInterface{
 
   public function build(){
     $config = $this->getConfiguration();
-    $text = $config['bloquealcaldia']['value'];
     return [
-      '#markup' => $this->t($text),
+      '#markup' => $this->t('<div>'.$config['bloquealcaldia']['titulo'].'</div><div>'.$config['bloquealcaldia']['body']['value'].'</div>'),
     ];
   }
   protected function blockAccess(AccountInterface $account) {
@@ -33,12 +32,22 @@ Class AlcaldiaBlock extends BlockBase implements BlockPluginInterface{
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
+    
     $form['bloquealcaldia'] = [
-      '#type' => 'text_format',
-      '#title' => $this->t('Body'),
-      '#description' => $this->t('Cuerpo del bloque'),
-      '#default_value' => isset($config['bloquealcaldia']) ? $config['bloquealcaldia']['value'] : '',
+      'titulo' => array(
+        '#type' => 'textfield',
+        '#title' => $this->t('Titulo'),
+        '#description' => $this->t('Título del bloque'),
+        '#default_value' => isset($config['bloquealcaldia']) ? $config['bloquealcaldia']['titulo']: '',
+      ),
+      'body' => array(
+        '#type' => 'text_format',
+        '#title' => $this->t('Body'),
+        '#description' => $this->t('Cuerpo del bloque'),
+        '#default_value' => isset($config['bloquealcaldia']) ? $config['bloquealcaldia']['body']['value'] : '',
+      ),
     ];
+
     return $form;
   }
 
