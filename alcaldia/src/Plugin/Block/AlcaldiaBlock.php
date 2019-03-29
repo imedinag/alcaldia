@@ -33,7 +33,6 @@ Class AlcaldiaBlock extends BlockBase implements BlockPluginInterface{
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
-  //  $prueba = "<pre>".$config['bloquealcaldia']."</pre>";
     $form['bloquealcaldia'] = [
       '#type' => 'text_format',
       '#title' => $this->t('Body'),
