@@ -4,6 +4,7 @@ namespace Drupal\alcaldia\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 
@@ -16,21 +17,28 @@ use Drupal\Core\Session\AccountInterface;
  * )
  */
 
-Class AlcaldiaBlock extends BlockBase {
+Class AlcaldiaBlock extends BlockBase implements BlockPluginInterface{
 
   public function build(){
+    $config = $this->getConfiguration();
+    $text = $config['bloquealcaldia']['value'];
     return [
-      '#markup' => $this->t('Bloque Alcadia'),
+      '#markup' => $this->t($text),
     ];
+  }
+  protected function blockAccess(AccountInterface $account) {
+    return AccessResult::allowedIfHasPermission($account, 'access content');
   }
 
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
+  //  $prueba = "<pre>".$config['bloquealcaldia']."</pre>";
     $form['bloquealcaldia'] = [
       '#type' => 'text_format',
       '#title' => $this->t('Body'),
       '#description' => $this->t('Cuerpo del bloque'),
+      '#default_value' => isset($config['bloquealcaldia']) ? $config['bloquealcaldia']['value'] : '',
     ];
     return $form;
   }
